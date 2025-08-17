@@ -2,13 +2,13 @@
 Anki Audio Enabler
 
 This script automatically enables audio for Anki flashcards that meet certain criteria.
-It finds cards in the "Polish_English" deck using the "Word" template with intervals > 14 days
+It finds cards in the "Polish" deck using the "Word" template with intervals > 14 days
 and sets their "Audio Enabled" field to "Yes".
 
 Requirements:
 - Anki must be running
 - AnkiConnect addon must be installed in Anki
-- The deck "Polish_English" must exist with "Words" model containing "Word" template
+- The deck "Polish" must exist with "Words" model containing "Word" template
 """
 
 import requests
@@ -89,11 +89,11 @@ def unlock_audio_cards() -> None:
     """
     Main function that enables audio for qualifying cards.
     
-    Finds all cards in the Polish_English deck using the "Word" template
+    Finds all cards in the Polish deck using the "Word" template
     with intervals > 14 days and enables audio for them.
     """
     try:
-        logger.info("Starting audio enablement process for Polish_English deck")
+        logger.info("Starting audio enablement process for Polish deck")
         
         # Get the template information for the "Words" model
         logger.debug("Retrieving template information for 'Words' model")
@@ -109,21 +109,21 @@ def unlock_audio_cards() -> None:
         word_template_ord = template_names.index("Word")
         logger.debug(f"'Word' template order: {word_template_ord}")
 
-        # Get all notes in the Polish_English deck
-        logger.info("Searching for notes in Polish_English deck")
-        note_ids = find_notes("Polish_English")
+        # Get all notes in the Polish deck
+        logger.info("Searching for notes in Polish deck")
+        note_ids = find_notes("Polish")
         if not note_ids:
-            logger.warning("No notes found in Polish_English deck")
+            logger.warning("No notes found in Polish deck")
             return
             
-        logger.info(f"Found {len(note_ids)} notes in Polish_English deck")
+        logger.info(f"Found {len(note_ids)} notes in Polish deck")
         notes = get_note_info(note_ids)
 
         # Get the notes with the model name "Words"
         logger.debug("Filtering notes by 'Words' model")
         notes = [note for note in notes if note["modelName"] == "Words"]
         if not notes:
-            logger.warning("No notes found with 'Words' model in Polish_English deck")
+            logger.warning("No notes found with 'Words' model in Polish deck")
             return
 
         logger.info(f"Found {len(notes)} notes with 'Words' model")
