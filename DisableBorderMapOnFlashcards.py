@@ -13,21 +13,21 @@ def disable_border_maps_on_cards() -> None:
     """
     Main function that disables border maps for qualifying cards.
 
-    Finds all cards in the Other deck using the "Countries" template
+    Finds all cards in the Other deck using the "Regions" template
     with intervals > 45 days and disables their border maps.
     """
     try:
         logger.info("Starting border map disabling process for Other deck")
 
-        # Get the template information for the "Countries" model
-        logger.debug("Retrieving template information for 'Countries' model")
-        templates_dict = get_model_templates("Countries")
+        # Get the template information for the "Regions" model
+        logger.debug("Retrieving template information for 'Regions' model")
+        templates_dict = get_model_templates("Regions")
         template_names = list(templates_dict.keys())
         logger.debug(f"Found templates: {template_names}")
 
         # Get the order of the "Neighbours" template in the templates list
         if "Neighbours" not in template_names:
-            logger.warning("'Neighbours' template not found in the 'Countries' model")
+            logger.warning("'Neighbours' template not found in the 'Regions' model")
             return
 
         neighbours_template_ord = template_names.index("Neighbours")
@@ -43,14 +43,14 @@ def disable_border_maps_on_cards() -> None:
         logger.info(f"Found {len(note_ids)} notes in Other deck")
         notes = get_note_info(note_ids)
 
-        # Get the notes with the model name "Countries"
-        logger.debug("Filtering notes by 'Countries' model")
-        notes = [note for note in notes if note["modelName"] == "Countries"]
+        # Get the notes with the model name "Regions"
+        logger.debug("Filtering notes by 'Regions' model")
+        notes = [note for note in notes if note["modelName"] == "Regions"]
         if not notes:
-            logger.warning("No notes found with 'Countries' model in Other deck")
+            logger.warning("No notes found with 'Regions' model in Other deck")
             return
 
-        logger.info(f"Found {len(notes)} notes with 'Countries' model")
+        logger.info(f"Found {len(notes)} notes with 'Regions' model")
 
         # Create a list of all of the cardIDs in the notes
         card_ids = [card_id for note in notes for card_id in note["cards"]]
